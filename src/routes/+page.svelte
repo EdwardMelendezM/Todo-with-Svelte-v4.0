@@ -1,9 +1,18 @@
 <script>
-	import Input from '../components/Input.svelte'
+	import Form from '../components/Form.svelte'
+  import ItemTodo from '../components/ItemTodo.svelte';
 	let listTodo=[]
+
 	const addTodo=(newValue)=>{
 		listTodo=[...listTodo, newValue]
 	}
+
+	const removeTodo=(id)=>{
+		let temp = listTodo.filter((todo)=>todo.id!==id)
+		listTodo=[...temp]
+	}
+
+
 	$:console.log(listTodo)
 </script>
 
@@ -15,10 +24,13 @@
 <div class="container">
 	<div class="container_todo">
 		<h2>TODO APLICATION</h2>
-		<Input addTodo={addTodo}/>
+		<Form addTodo={addTodo}/>
 		<div class="container_todos">
 				{#each listTodo as todo (todo.id)}
-					<div class="container_todos_todo">{todo.content}</div>
+					<ItemTodo
+						todo={todo}
+						removeTodo={removeTodo}
+					/>
 				{/each}
 		</div>
 	</div>
@@ -40,5 +52,8 @@
 		border-radius: 10px;
 		padding: 16px;
 		margin-top: 61px;
+	}
+	.container_todos{
+		margin-top: 10px;
 	}
 </style>
