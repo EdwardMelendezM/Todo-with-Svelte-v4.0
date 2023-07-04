@@ -1,6 +1,7 @@
 <script>
   export let todo;
   export let removeTodo;
+  export let editById;
 
   let isEdit = false;
   let formValue = todo.content;
@@ -12,13 +13,15 @@
   }
 
   const onEdit=()=>{
-    isEdit=!isEdit
-    if(inputRef && isEdit){
-      setTimeout(() => {
-        inputRef.focus()
-      },1000);
+    if(isEdit){
+      editById(todo.id,formValue)
     }
-    console.log(inputRef)
+    isEdit=!isEdit
+    if(isEdit){
+      inputRef.focus()
+      // console.log(inputRef);
+    }
+    
   }
 
 </script>
@@ -28,13 +31,12 @@
     <div>{todo.content}</div>
   {/if}
 
-  {#if isEdit}
     <input
       type="text"
       bind:value={formValue}
       bind:this={inputRef}
+      class={`${isEdit?'input ':'hidden_input'}`}
     >
-  {/if}
 
   <div>
     <button
@@ -64,10 +66,14 @@
     outline: none;
     cursor: pointer;
   }
-  input{
+  .input{
     padding: 4px;
     border: 0;
     width: 50%;
     border-radius: 6px;
+  }
+  .hidden_input{
+    display: none;
+    visibility: hidden;
   }
 </style>

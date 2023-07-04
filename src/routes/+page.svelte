@@ -12,8 +12,20 @@
 		listTodo=[...temp]
 	}
 
+	const editById =(id,content)=>{
+		let temp = listTodo.map((todo)=>{
+			if(todo.id==id){
+				todo.content=content
+				return todo
+			}
+			return todo
+		})
 
-	$:console.log(listTodo)
+		listTodo=[...temp]
+		
+	}
+
+	// $:console.log(listTodo)
 </script>
 
 <svelte:head>
@@ -30,6 +42,7 @@
 					<ItemTodo
 						todo={todo}
 						removeTodo={removeTodo}
+						editById={editById}
 					/>
 				{/each}
 		</div>

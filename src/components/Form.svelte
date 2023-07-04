@@ -27,7 +27,7 @@
     <button
       type="submit"
       class="button_custom"
-    >Agregar</button>
+    >Add todo</button>
   </form>
 </div>
 
